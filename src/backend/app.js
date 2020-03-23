@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+require('dotenv').config();
 import bodyParser from "body-parser";
 import cors from "cors"
 import routes from "./routes/index.js";
@@ -11,12 +12,12 @@ const app = express();
  */
 
 // mongoose.connect("mongodb://localhost");
-// const uri = process.env.ATLAS_URI;
-// mongoose.connect(uri,{ useNewUrlParser:true,useUnifiedTopology: true, useCreateIndex:true});
-// const connection = mongoose.connection;
-// connection.once('open',()=>{
-//     console.log("MongoDB database connection established successfully");
-// });
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri,{ useNewUrlParser:true,useUnifiedTopology: true, useCreateIndex:true});
+const connection = mongoose.connection;
+connection.once('open',()=>{
+    console.log("MongoDB database connection established successfully");
+});
 
 /**
  * Middleware

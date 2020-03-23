@@ -1,8 +1,7 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
-
 
 @Component({
   selector: 'app-post-list',
@@ -15,12 +14,12 @@ private postsSub: Subscription;
 
  constructor(public postsService: PostService) {}
 
+ onDeletePost(id: string) {
+  this.postsService.deletePost(id);
+}
+
  ngOnInit() {
    this.postsService.getPosts();
-  //  this.postsSub = this.postsService.getPostUpdateListener()
-  //  .subscribe((posts: Post[]) => {
-  //    this.posts = posts;
-  //  });
  }
 
  ngOnDestroy() {

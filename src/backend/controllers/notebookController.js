@@ -12,11 +12,16 @@ exports.getNote = (req, res) => {
 };
 
 exports.arrivedNotes = (req, res) => {
-     const notes =  [
-        {title: 'im here', content:'yess'},
-        {title: 'omri', content:'hagever'}
-    ]
-      res.json(notes);
+  note.find({},(err,notes)=>{
+    if(err){
+      res.send(err);
+    }
+    res.json(notes);
+  });
+    //  const notes =  [
+        // {title: 'im here', content:'yess'},
+        // {title: 'omri', content:'hagever'}
+    // ]
 };
 
 
@@ -56,6 +61,7 @@ exports.updateNote = (req, res) => {
 };
 
 exports.deleteNote = (req, res) => {
+  console.log('parameter:',req.params.noteId);
     note.remove({
         _id: req.params.noteId
     }, (err) => {

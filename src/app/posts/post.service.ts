@@ -19,8 +19,20 @@ export class PostService {
     return this.postsUpdated.asObservable();
   }
   addPost(title: string, content: string) {
-    const post: Post = { title, content };
-    this.posts.push(post);
+    const post = { title, content };
+    this.http.post<Post>('http://localhost:3000/notes', post, { responseType: 'json' })
+    .subscribe((data) => this.posts.push(data));
+    this.postsUpdated.next([...this.posts]);
+  }
+
+  deletePost(noteId: string) {
+    this.http.delete<Post>(`http://localhost:3000/notes/${noteId}`)
+    .subscribe((data) => {
+      console.log(data);
+      // debugger;
+      // this.posts.filter((p) => p._id !== noteId);
+    });
+    // console.log(this.posts);
     this.postsUpdated.next([...this.posts]);
   }
 }
